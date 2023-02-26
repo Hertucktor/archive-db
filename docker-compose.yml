@@ -1,0 +1,19 @@
+---
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:latest
+    container_name: 'card-archive'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_DATABASE: card_archive
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d/
+volumes:
+  mongodb_data_container:
+  # TODO: create Collection definitions in mongo-init dir
+  mongo-init:
