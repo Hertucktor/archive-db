@@ -1,19 +1,18 @@
 ---
-version: '3.7'
+version: '3'
 services:
-  mongodb_container:
+  # ... other configs ... #
+  database:
     image: mongo:latest
-    container_name: 'card-archive'
+    container_name: 'mtg-archive'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-      MONGO_INITDB_DATABASE: card_archive
-    ports:
-      - "27017:27017"
+      - MONGO_INITDB_DATABASE=Magic:The-Gathering-Archive
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
     volumes:
-      - mongodb_data_container:/data/db
-      - ./mongo-init:/docker-entrypoint-initdb.d/
-volumes:
-  mongodb_data_container:
-  # TODO: create Collection definitions in mongo-init dir
-  mongo-init:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+
+  # ... other configs ... #
