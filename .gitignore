@@ -6,3 +6,6 @@
 
 # System info
 .idea
+
+# exclude mongoDB volume
+mongo-volume
